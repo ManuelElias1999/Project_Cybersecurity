@@ -1,28 +1,41 @@
-REMIX DEFAULT WORKSPACE
+# Blockchain-based Cybersecurity Solution
 
-Remix default workspace is present when:
-i. Remix loads for the very first time 
-ii. A new workspace is created with 'Default' template
-iii. There are no files existing in the File Explorer
+This Solidity smart contract implements a cybersecurity solution for reporting and analyzing security events within a private blockchain network.
 
-This workspace contains 3 directories:
+## Description
 
-1. 'contracts': Holds three contracts with increasing levels of complexity.
-2. 'scripts': Contains four typescript files to deploy a contract. It is explained below.
-3. 'tests': Contains one Solidity test file for 'Ballot' contract & one JS test file for 'Storage' contract.
+The `Event` contract facilitates the reporting of security events by nodes within the private blockchain network. It allows nodes to create events and alerts, which are then distributed to all nodes for analysis. The contract includes functionality to set a threshold for the maximum number of events per node.
 
-SCRIPTS
+## Contract Details
 
-The 'scripts' folder has four typescript files which help to deploy the 'Storage' contract using 'web3.js' and 'ethers.js' libraries.
+- **Events**: Logs security events reported by nodes within the network.
+- **Alerts**: Stores alerts generated based on the severity of security events.
+- **Threshold**: Defines the maximum number of events per node before cycling begins.
+- **Owner**: The address of the contract owner, who has permission to modify the threshold.
 
-For the deployment of any other contract, just update the contract's name from 'Storage' to the desired contract and provide constructor arguments accordingly 
-in the file `deploy_with_ethers.ts` or  `deploy_with_web3.ts`
+## Core Features
 
-In the 'tests' folder there is a script containing Mocha-Chai unit tests for 'Storage' contract.
+- **Event Reporting**: Nodes can create security events within the blockchain network.
+- **Alert Generation**: Alerts are generated based on the severity of security events and distributed to all nodes.
+- **Threshold Management**: The contract owner can set and modify the threshold for event cycling.
 
-To run a script, right click on file name in the file explorer and click 'Run'. Remember, Solidity file must already be compiled.
-Output from script will appear in remix terminal.
+## Usage
 
-Please note, require/import is supported in a limited manner for Remix supported modules.
-For now, modules supported by Remix are ethers, web3, swarmgw, chai, multihashes, remix and hardhat only for hardhat.ethers object/plugin.
-For unsupported modules, an error like this will be thrown: '<module_name> module require is not supported by Remix IDE' will be shown.
+1. **Event Creation**: Call the `createEvent` function to report security events within the network.
+2. **Alert Generation**: Call the `createAlert` function to generate alerts based on security event severity.
+3. **Threshold Management**: Call the `setThreshold` function to set or modify the maximum number of events per node.
+
+### Example Usage
+
+```solidity
+// Deploy the contract with a threshold of 10 events per node
+Event eventContract = new Event(10);
+
+// Report a security event
+eventContract.createEvent("Unauthorized access detected in network");
+
+// Generate an alert for a high-risk event
+eventContract.createAlert(Risk.HIGH, "Potential security breach detected");
+
+// Modify the threshold for event cycling
+eventContract.setThreshold(15);
